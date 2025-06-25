@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const fetch = require('node-fetch'); // ✅ 这是 node-fetch v2 的正确写法
 
 const app = express();
 app.use(cors());
@@ -8,6 +8,7 @@ app.use(express.json());
 
 app.post('/api/generate', async (req, res) => {
   const { prompt, width, height } = req.body;
+
   try {
     const response = await fetch('https://api.flux.1.dev/stablediffusion/1.5-txt2img', {
       method: 'POST',
